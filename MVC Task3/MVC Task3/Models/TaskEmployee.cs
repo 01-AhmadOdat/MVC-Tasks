@@ -49,6 +49,25 @@ namespace MVC_Task3.Models
 
 
         public Nullable<bool> Gender { get; set; }
+
+
+        public string GenderDisplay
+        {
+            get
+            {
+                if (Gender == null)
+                {
+                    return "Not specified";
+                }
+                else
+                {
+                    return Gender == true ? "Male" : "Female";
+                }
+            }
+        }
+        public string Image { get; set; }
+        public string CV { get; set; }
+        
     }
 
 

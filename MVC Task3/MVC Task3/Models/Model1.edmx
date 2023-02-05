@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OdatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OdatModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TaskEmployees">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,12 +17,13 @@
           <Property Name="Age" Type="int" />
           <Property Name="Job Title" Type="nvarchar" MaxLength="100" />
           <Property Name="Gender" Type="bit" />
+          <Property Name="Image" Type="varchar" MaxLength="255" />
+          <Property Name="CV" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityContainer Name="OdatModelStoreContainer">
           <EntitySet Name="TaskEmployees" EntityType="Self.TaskEmployees" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OdatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -38,6 +39,8 @@
           <Property Name="Age" Type="Int32" />
           <Property Name="Job_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CV" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="OdatEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TaskEmployees" EntityType="Self.TaskEmployee" />
@@ -51,6 +54,8 @@
           <EntitySetMapping Name="TaskEmployees">
             <EntityTypeMapping TypeName="OdatModel.TaskEmployee">
               <MappingFragment StoreEntitySet="TaskEmployees">
+                <ScalarProperty Name="CV" ColumnName="CV" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="First_Name" ColumnName="First Name" />
                 <ScalarProperty Name="Last_Name" ColumnName="Last Name" />

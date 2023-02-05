@@ -9,7 +9,51 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+@using (Html.BeginForm())
+
+{
+    <div style=" width:70%;display:flex; justify-content:space-evenly">
+        <p>Search in: </p>
+        <div>
+            <input type="radio" id="first" name="drone" value="first">
+            <label for="first">first name</label>
+        </div>
+
+        <div>
+            <input type="radio" id="last" name="drone" value="last">
+            <label for="last">last name</label>
+        </div>
+
+        <div>
+            <input type="radio" id="email" name="drone" value="email">
+            <label for="email">email</label>
+        </div>
+        <div>
+            <input type="radio" id="phone" name="drone" value="phone">
+            <label for="phone">phone</label>
+        </div>
+
+        <div>
+            <input type="radio" id="age" name="drone" value="age">
+            <label for="age">age</label>
+        </div>
+
+        <div>
+            <input type="radio" id="job" name="drone" value="job">
+            <label for="job">job title</label>
+        </div>
+    </div>
+
+    @*<form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input class="form-control form-control-sm ml-3 w-75" id="sname" type="text" placeholder="Search"
+               aria-label="Search">
+    </form>*@
+
+    @Html.TextBox("sname")
+    <input type="submit" name="btnsearch" value="Search" />
+}
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.First_Name)
@@ -32,38 +76,64 @@
         <th>
             @Html.DisplayNameFor(model => model.Gender)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            CV
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.First_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Last_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Job_Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job_Title)
+            </td>
+            <td>
+                <div>
+                    @if (item.Gender == null)
+                    {
+                        <span>Not specified</span>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.GenderDisplay)
+                    }
+                </div>
+            </td>
+            <td>
+                <img src="../Images/@item.Image" alt="@item.Image" width="100" />
+            </td>
+            <td>
+                <a download="@item.CV">download CV</a>
+            </td>
+
+
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" })
+            </td>
+        </tr>
+    }
 
 </table>

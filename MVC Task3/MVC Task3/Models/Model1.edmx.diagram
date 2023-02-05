@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a22978bbc2c84b2db7a3a4a3447ce781" Name="Diagram1">
-        <EntityTypeShape EntityType="OdatModel.TaskEmployee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdatModel.TaskEmployee" Width="2.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

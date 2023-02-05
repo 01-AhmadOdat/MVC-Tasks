@@ -12,6 +12,8 @@
     <Property Name="Age" Type="int" />
     <Property Name="Job Title" Type="nvarchar" MaxLength="100" />
     <Property Name="Gender" Type="bit" />
+    <Property Name="Image" Type="varchar" MaxLength="255" />
+    <Property Name="CV" Type="varchar" MaxLength="255" />
   </EntityType>
   <EntityContainer Name="OdatModelStoreContainer">
     <EntitySet Name="TaskEmployees" EntityType="Self.TaskEmployees" Schema="dbo" store:Type="Tables" />

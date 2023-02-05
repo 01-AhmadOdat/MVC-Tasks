@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using MVC_Task3.Models;
 
 namespace MVC_Task3.Controllers
@@ -18,6 +20,21 @@ namespace MVC_Task3.Controllers
         public ActionResult Index()
         {
             return View(db.TaskEmployees.ToList());
+        }
+        [HttpPost]
+        public ActionResult Index(string sname , string drone)
+        {
+            var employees = db.TaskEmployees.ToList();
+
+            if (drone == "first") { employees = db.TaskEmployees.Where(a => a.First_Name.Contains(sname)).ToList(); }
+            else if(drone == "last") { employees = db.TaskEmployees.Where(a => a.Last_Name.Contains(sname)).ToList(); }
+            else if (drone == "email") { employees = db.TaskEmployees.Where(a => a.Email.Contains(sname)).ToList(); }
+            else if (drone == "phone") { employees = db.TaskEmployees.Where(a => a.Phone.Contains(sname)).ToList(); }
+            else if (drone == "age") { employees = db.TaskEmployees.Where(a => a.Age.ToString().Contains(sname)).ToList(); }
+            else if (drone == "job") { employees = db.TaskEmployees.Where(a => a.Job_Title.ToString().Contains(sname)).ToList(); }
+            //var employees = db.TaskEmployees.Where(a => a.First_Name.Contains(sname)||a.Last_Name.Contains(sname));
+
+            return View(employees.ToList());
         }
 
         // GET: TaskEmployees/Details/5
@@ -38,6 +55,7 @@ namespace MVC_Task3.Controllers
         // GET: TaskEmployees/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
@@ -46,10 +64,26 @@ namespace MVC_Task3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Email,Phone,Age,Job_Title,Gender")] TaskEmployee taskEmployee)
+        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Email,Phone,Age,Job_Title,Gender")] TaskEmployee taskEmployee,HttpPostedFileBase file,HttpPostedFileBase filename)
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {
+                    string shraideh = Path.GetFileName(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Images"), shraideh);
+                    file.SaveAs(path);
+                    taskEmployee.Image = shraideh;
+
+                }
+                if (filename.ContentLength > 0)
+                {
+                    string shraideh = Path.GetFileName(filename.FileName);
+                    string path = Path.Combine(Server.MapPath("~/CVs"), shraideh);
+                    filename.SaveAs(path);
+                    taskEmployee.CV = shraideh;
+
+                }
                 db.TaskEmployees.Add(taskEmployee);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,10 +112,26 @@ namespace MVC_Task3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Email,Phone,Age,Job_Title,Gender")] TaskEmployee taskEmployee)
+        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Email,Phone,Age,Job_Title,Gender")] TaskEmployee taskEmployee, HttpPostedFileBase file, HttpPostedFileBase filename)
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0)
+                {
+                    string shraideh = Path.GetFileName(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Images"), shraideh);
+                    file.SaveAs(path);
+                    taskEmployee.Image = shraideh;
+
+                }
+                if (filename.ContentLength > 0)
+                {
+                    string shraideh = Path.GetFileName(filename.FileName);
+                    string path = Path.Combine(Server.MapPath("~/CVs"), shraideh);
+                    filename.SaveAs(path);
+                    taskEmployee.CV = shraideh;
+
+                }
                 db.Entry(taskEmployee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
