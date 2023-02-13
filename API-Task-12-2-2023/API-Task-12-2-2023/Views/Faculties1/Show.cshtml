@@ -1,0 +1,34 @@
+﻿@model API_Task_12_2_2023.Models.Faculty
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+<div id="div1">
+
+</div>
+<script>
+    async function read() {
+        try {
+            const api = "https://localhost:44395/api/Faculties";
+            const res = await fetch(api);
+            const data = await res.json();
+
+            console.log(data);
+            readdata(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    function readdata(data) {
+        for (let i = 0; i < data.length; i++) {
+
+            //document.getElementById('div1').innerHTML += </a>` ;
+            document.getElementById('div1').innerHTML += `<h1>${data[i].name}</h1>`;
+
+        }
+    }
+    read();
+</script>
+

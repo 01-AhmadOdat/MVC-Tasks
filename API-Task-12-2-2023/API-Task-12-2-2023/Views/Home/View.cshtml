@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+<div class="container">
+
+</div>
+
+<script>
+    async function getdata() {
+        const resp = await fetch("https://localhost:44395/api/Faculties");
+        console.log(resp);
+        const data = resp.json();
+        console.log(data[0].name);
+        for (let i = 0; i < data.length; i++) {
+            document.getElementById("container").innerHTML += `<a href="https://localhost:44395/api/Faculties/${data[i].id}"/>`
+        }
+    }
+</script>
+
